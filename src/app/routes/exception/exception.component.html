@@ -1,0 +1,20 @@
+<div style="min-height: 500px; height: 80%" [ngSwitch]="type">
+  <div *ngSwitchCase="403">
+    <img src="assets/images/403.svg" />
+    {{ type }}
+    抱歉，你无权访问该页面
+  </div>
+  <div *ngSwitchCase="500">
+    <img src="assets/images/500.svg" />
+    {{ type }}
+    抱歉，服务器出错了
+  </div>
+  <div *ngSwitchDefault>
+    <img src="assets/images/404.svg" />
+    {{ type }}
+    抱歉，你访问的页面不存在
+  </div>
+  <div>
+    <button nz-button nzType="primary" (click)="pathHome()">返回首页</button>
+  </div>
+</div>
