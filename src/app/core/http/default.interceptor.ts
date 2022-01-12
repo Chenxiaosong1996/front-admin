@@ -15,7 +15,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { Injectable, Injector } from '@angular/core';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { TokenGuard } from '../auth/token.guard';
+import { TokenService } from '../auth/token.guard';
 
 const CODEMESSAGE: { [key: number]: string } = {
   200: '服务器成功返回请求的数据。',
@@ -70,8 +70,8 @@ export class DefaultInterceptor implements HttpInterceptor {
     let newheaders: any = {
       'Accept-Language': 'zh-CN'
     };
-    if (TokenGuard.check()) {
-      newheaders[TokenGuard.tokenname] = TokenGuard.get();
+    if (TokenService.check()) {
+      newheaders[TokenService.tokenname] = TokenService.get();
     }
     return Object.assign({}, headers, { ...newheaders });
   }

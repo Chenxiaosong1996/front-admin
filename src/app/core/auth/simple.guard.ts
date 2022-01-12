@@ -8,7 +8,7 @@ import {
     CanLoad,
 } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { TokenGuard } from './token.guard';
+import { TokenService } from './token.guard';
 import { environment } from '@env/environment';
 import { Route } from '@angular/compiler/src/core';
 
@@ -21,7 +21,7 @@ export class SimpleGuard implements CanActivate, CanActivateChild, CanLoad, CanD
     }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         // 权限控制逻辑如 是否登录/拥有访问权限
-        if (TokenGuard.check()) {
+        if (TokenService.check()) {
             return true;
         }
         this.router.navigateByUrl(environment.loginUrl)

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   useHash: false,
-  loginUrl: 'login',
+  loginUrl: 'passport/login',
   api: {
     default: 'v1',
     v1: {

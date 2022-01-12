@@ -1,6 +1,6 @@
 import { CookieStore } from "@shared";
 
-export class TokenGuard {
+export class TokenService {
     static tokentime: number = 2; // 2小时
     static tokenname: string = 'Access-Token';
 

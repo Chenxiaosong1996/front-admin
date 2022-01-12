@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   useHash: false,
-  loginUrl: 'login',
+  loginUrl: 'passport/login',
   api: {
     default: 'v1',
     v1: {
