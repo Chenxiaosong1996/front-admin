@@ -3,25 +3,27 @@
     <nz-tab [nzTitle]="'app.login.tab-login-credentials' | i18n">
       <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please enter mobile number, muse be: admin or user">
-          <nz-input-group nzSize="large" nzPrefixIcon="user">
-            <input nz-input formControlName="userName" placeholder="username: admin or user" />
+        <nz-form-control nzErrorTip="Please enter username">
+          <nz-input-group nzSize="large" [nzPrefix]="prefixTemplateUser">
+            <input nz-input formControlName="userName" placeholder="please enter username" />
           </nz-input-group>
+          <ng-template #prefixTemplateUser><i class="iconfont icon-user"></i></ng-template>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please enter password, muse be: ng-alain.com">
-          <nz-input-group nzSize="large" nzPrefixIcon="lock">
-            <input nz-input type="password" formControlName="password" placeholder="password: ng-alain.com" />
+        <nz-form-control nzErrorTip="Please enter password">
+          <nz-input-group nzSize="large" [nzPrefix]="prefixTemplateLock">
+            <input nz-input type="password" formControlName="password" placeholder="please enter password" />
           </nz-input-group>
+          <ng-template #prefixTemplateLock><i class="iconfont icon-lock"></i></ng-template>
         </nz-form-control>
       </nz-form-item>
     </nz-tab>
     <nz-tab [nzTitle]="'app.login.tab-login-mobile' | i18n">
       <nz-form-item>
         <nz-form-control [nzErrorTip]="mobileErrorTip">
-          <nz-input-group nzSize="large" nzPrefixIcon="user">
-            <input nz-input formControlName="mobile" placeholder="mobile number" />
+          <nz-input-group nzSize="large" [nzPrefix]="prefixTemplateUser">
+            <input nz-input formControlName="mobile" placeholder="please enter mobile number" />
           </nz-input-group>
           <ng-template #mobileErrorTip let-i>
             <ng-container *ngIf="i.errors.required">
@@ -37,7 +39,7 @@
         <nz-form-control [nzErrorTip]="'validation.verification-code.required' | i18n">
           <nz-row [nzGutter]="8">
             <nz-col [nzSpan]="16">
-              <nz-input-group nzSize="large" nzPrefixIcon="mail">
+              <nz-input-group nzSize="large" [nzPrefix]="prefixTemplateLock">
                 <input nz-input formControlName="captcha" placeholder="captcha" />
               </nz-input-group>
             </nz-col>
@@ -67,8 +69,13 @@
 </form>
 <div class="other">
   {{ 'app.login.sign-in-with' | i18n }}
-  <i nz-tooltip nzTooltipTitle="in fact Auth0 via window" (click)="open('auth0', 'window')" nz-icon nzType="alipay-circle" class="icon"></i>
-  <i nz-tooltip nzTooltipTitle="in fact Github via redirect" (click)="open('github')" nz-icon nzType="taobao-circle" class="icon"></i>
-  <i (click)="open('weibo', 'window')" nz-icon nzType="weibo-circle" class="icon"></i>
+  <i
+    nz-tooltip
+    nzTooltipTitle="in fact Auth0 via window"
+    (click)="open('auth0', 'window')"
+    class="icon iconfont icon-alipay-circle-fill"
+  ></i>
+  <i nz-tooltip nzTooltipTitle="in fact Github via redirect" (click)="open('github')" class="icon iconfont icon-taobao-circle-fill"></i>
+  <i (click)="open('weibo', 'window')" class="icon iconfont icon-weibo-circle-fill"></i>
   <a class="register" routerLink="/passport/register">{{ 'app.login.signup' | i18n }}</a>
 </div>

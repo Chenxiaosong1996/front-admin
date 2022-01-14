@@ -1,18 +1,18 @@
-<div style="min-height: 500px; height: 80%" [ngSwitch]="type">
+<div class="my-exception" [ngSwitch]="type">
   <div *ngSwitchCase="403">
     <img src="assets/images/403.svg" />
-    {{ type }}
-    抱歉，你无权访问该页面
+    <h2 nz-typography>{{ type }}</h2>
+    <div>抱歉，你无权访问该页面</div>
   </div>
   <div *ngSwitchCase="500">
     <img src="assets/images/500.svg" />
-    {{ type }}
-    抱歉，服务器出错了
+    <h2 nz-typography>{{ type }}</h2>
+    <div>抱歉，服务器出错了</div>
   </div>
   <div *ngSwitchDefault>
     <img src="assets/images/404.svg" />
-    {{ type }}
-    抱歉，你访问的页面不存在
+    <h2 nz-typography>{{ type }}</h2>
+    <div>抱歉，你访问的页面不存在</div>
   </div>
   <div>
     <button nz-button nzType="primary" (click)="pathHome()">返回首页</button>

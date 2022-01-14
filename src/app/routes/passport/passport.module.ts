@@ -4,12 +4,11 @@ import { TranslateLocalePipe } from '@core';
 
 import { UserLockComponent } from './lock/lock.component';
 import { UserLoginComponent } from './login/login.component';
+import { UserPassPortComponent } from './base/passport.component';
 import { PassportRoutingModule } from './passport-routing.module';
-
-const COMPONENTS = [UserLoginComponent, UserLockComponent, TranslateLocalePipe];
 
 @NgModule({
   imports: [SharedModule, PassportRoutingModule],
-  declarations: [...COMPONENTS]
+  declarations: [UserLoginComponent, UserLockComponent, UserPassPortComponent, TranslateLocalePipe],
 })
-export class PassportModule {}
+export class PassportModule { }

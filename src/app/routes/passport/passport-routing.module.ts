@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { UserLockComponent } from './lock/lock.component';
 import { UserLoginComponent } from './login/login.component';
+import { UserPassPortComponent } from './base/passport.component';
 
 const routes: Routes = [
   {
     path: 'passport',
+    component: UserPassPortComponent,
     children: [
       {
         path: 'login',

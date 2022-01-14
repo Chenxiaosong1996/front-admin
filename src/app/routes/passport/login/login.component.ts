@@ -4,7 +4,7 @@ import { environment } from '@env/environment';
 import { HttpClient } from '@angular/common/http';
 import { NzTabChangeEvent } from 'ng-zorro-antd/tabs';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 
 @Component({
   selector: 'passport-login',
@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestro
   styleUrls: ['./login.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserLoginComponent implements OnDestroy {
+export class UserLoginComponent {
   constructor(
     fb: FormBuilder,
     private router: Router,
@@ -20,9 +20,9 @@ export class UserLoginComponent implements OnDestroy {
     private cdr: ChangeDetectorRef
   ) {
     this.form = fb.group({
-      userName: [null, [Validators.required, Validators.pattern(/^(admin|user)$/)]],
-      password: [null, [Validators.required, Validators.pattern(/^(ng\-alain\.com)$/)]],
-      mobile: [null, [Validators.required, Validators.pattern(/^1\d{10}$/)]],
+      userName: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+      mobile: [null, [Validators.required]],
       captcha: [null, [Validators.required]],
       remember: [true]
     });
@@ -50,7 +50,6 @@ export class UserLoginComponent implements OnDestroy {
   // #region get captcha
 
   count = 0;
-  interval$: any;
 
   // #endregion
 
@@ -65,12 +64,6 @@ export class UserLoginComponent implements OnDestroy {
       return;
     }
     this.count = 59;
-    this.interval$ = setInterval(() => {
-      this.count -= 1;
-      if (this.count <= 0) {
-        clearInterval(this.interval$);
-      }
-    }, 1000);
   }
 
   // #endregion
@@ -100,18 +93,19 @@ export class UserLoginComponent implements OnDestroy {
     this.loading = true;
     this.cdr.detectChanges();
     this.http
-      .post('/login/account?_allow_anonymous=true', {
+      .post('/user/login', {
         type: this.type,
-        userName: this.userName.value,
+        username: this.userName.value,
         password: this.password.value
       })
       .pipe(
         finalize(() => {
-          this.loading = true;
+          this.loading = false;
           this.cdr.detectChanges();
         })
       )
       .subscribe((res: any) => {
+        console.log(res)
         if (res.msg !== 'ok') {
           this.error = res.msg;
           this.cdr.detectChanges();
@@ -171,10 +165,4 @@ export class UserLoginComponent implements OnDestroy {
   }
 
   // #endregion
-
-  ngOnDestroy(): void {
-    if (this.interval$) {
-      clearInterval(this.interval$);
-    }
-  }
 }
