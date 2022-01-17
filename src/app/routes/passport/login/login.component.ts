@@ -1,8 +1,9 @@
+import { TokenService } from '@core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import { environment } from '@env/environment';
 import { HttpClient } from '@angular/common/http';
 import { NzTabChangeEvent } from 'ng-zorro-antd/tabs';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 
@@ -17,7 +18,8 @@ export class UserLoginComponent {
     fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private message: NzMessageService
   ) {
     this.form = fb.group({
       userName: [null, [Validators.required]],
@@ -105,26 +107,17 @@ export class UserLoginComponent {
         })
       )
       .subscribe((res: any) => {
-        console.log(res)
-        if (res.msg !== 'ok') {
+        if (res && res.success) {
+          // 设置用户Token信息
+          // TODO: Mock expired value
+          TokenService.set(res.data.token, Number(res.data.express) / 1000 / 60 / 60);
+          // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
+          this.message.success('登录成功!');
+          this.router.navigateByUrl('');
+        } else {
           this.error = res.msg;
           this.cdr.detectChanges();
-          return;
         }
-        // 清空路由复用信息
-        // this.reuseTabService.clear();
-        // 设置用户Token信息
-        // TODO: Mock expired value
-        res.user.expired = +new Date() + 1000 * 60 * 5;
-        // this.tokenService.set(res.user);
-        // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
-        // this.startupSrv.load().subscribe(() => {
-        //   let url = this.tokenService.referrer!.url || '/';
-        //   if (url.includes('/passport')) {
-        //     url = '/';
-        //   }
-        //   this.router.navigateByUrl(url);
-        // });
       });
   }
 
@@ -133,11 +126,7 @@ export class UserLoginComponent {
   open(type: string, openType: any = 'href'): void {
     let url = ``;
     let callback = ``;
-    if (environment.production) {
-      callback = `https://ng-alain.github.io/ng-alain/#/passport/callback/${type}`;
-    } else {
-      callback = `http://localhost:4200/#/passport/callback/${type}`;
-    }
+    callback = `${location.origin}/passport/callback/${type}`;
     switch (type) {
       case 'auth0':
         url = `//cipchk.auth0.com/login?client=8gcNydIDzGBYxzqV0Vm1CX_RXH-wsWo5&redirect_uri=${decodeURIComponent(callback)}`;
@@ -151,18 +140,6 @@ export class UserLoginComponent {
         url = `https://api.weibo.com/oauth2/authorize?client_id=1239507802&response_type=code&redirect_uri=${decodeURIComponent(callback)}`;
         break;
     }
-    // if (openType === 'window') {
-    //   this.socialService
-    //     .login(url, '/', {
-    //       type: 'window'
-    //     })
-    //     .subscribe(res => {
-    //       if (res) {
-    //         this.router.navigateByUrl('/');
-    //       }
-    //     });
-    // }
+    location.href = url;
   }
-
-  // #endregion
 }

@@ -2,10 +2,10 @@ import { CookieStore } from "@shared";
 
 export class TokenService {
     static tokentime: number = 2; // 2小时
-    static tokenname: string = 'Access-Token';
+    static tokenname: string = 'Accept-Token';
 
-    static set(token: string): void {
-        CookieStore.set(this.tokenname, token, this.tokentime);
+    static set(token: string, time: number = this.tokentime): void {
+        CookieStore.set(this.tokenname, token, time);
     }
 
     static get(): string {
@@ -13,6 +13,10 @@ export class TokenService {
     }
 
     static check(): boolean {
-        return !!this.get();
+        return !!CookieStore.get(this.tokenname);
+    }
+
+    static clear() {
+        CookieStore.del(this.tokenname);
     }
 }

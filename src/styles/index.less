@@ -1,3 +1,170 @@
-.text-right {
-  text-align: right;
+@import './theme.less';
+
+.text {
+  &-left {
+    text-align: left;
+  }
+  &-center {
+    text-align: center;
+  }
+  &-right {
+    text-align: right;
+  }
+}
+
+.cursor {
+  &-pointer {
+    cursor: pointer;
+  }
+  &-auto {
+    cursor: auto;
+  }
+  &-not-allowed {
+    cursor: not-allowed;
+  }
+}
+
+.transition {
+  &-all {
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+.my-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.flex {
+  display: flex;
+  &-row {
+    flex-direction: row;
+  }
+  &-col {
+    flex-direction: column;
+  }
+}
+
+.justify {
+  &-start {
+    justify-content: start;
+  }
+  &-center {
+    justify-content: center;
+  }
+  &-end {
+    justify-content: end;
+  }
+  &-around {
+    justify-content: space-around;
+  }
+  &-between {
+    justify-content: space-between;
+  }
+}
+
+.items {
+  &-start {
+    align-items: flex-start;
+  }
+  &-center {
+    align-items: center;
+  }
+  &-end {
+    align-items: flex-end;
+  }
+}
+.rounded {
+  border-radius: 4px;
+  &-md {
+    border-radius: 6px;
+  }
+  &-lg {
+    border-radius: 8px;
+  }
+  &-xl {
+    border-radius: 10px;
+  }
+  &-full {
+    border-radius: 9999px;
+  }
+}
+.bg {
+  &-white {
+    background-color: white;
+  }
+  &-theme {
+    background-color: @primary-color;
+  }
+}
+.text {
+  &-white {
+    color: white;
+  }
+  &-theme {
+    color: @primary-color;
+  }
+  &-sm {
+    font-size: 12px;
+  }
+  &-md {
+    font-size: 14px;
+  }
+  &-lg {
+    font-size: 16px;
+  }
+  &-xl {
+    font-size: 18px;
+  }
+  &-xxl {
+    font-size: 20px;
+  }
+}
+.m {
+  &-5 {
+    margin: 5px;
+  }
+  &-10 {
+    margin: 10px;
+  }
+  &-15 {
+    margin: 15px;
+  }
+}
+.ml {
+  &-5 {
+    margin-left: 5px;
+  }
+  &-10 {
+    margin-left: 10px;
+  }
+  &-15 {
+    margin-left: 15px;
+  }
+}
+.mr {
+  &-5 {
+    margin-right: 5px;
+  }
+  &-10 {
+    margin-right: 10px;
+  }
+  &-15 {
+    margin-right: 15px;
+  }
+  &-20 {
+    margin-right: 20px;
+  }
+}
+.p {
+  &-5 {
+    padding: 5px;
+  }
+  &-10 {
+    padding: 10px;
+  }
+  &-15 {
+    padding: 15px;
+  }
 }

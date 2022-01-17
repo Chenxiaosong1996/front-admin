@@ -19,7 +19,7 @@
         </nz-form-control>
       </nz-form-item>
     </nz-tab>
-    <nz-tab [nzTitle]="'app.login.tab-login-mobile' | i18n">
+    <!-- <nz-tab [nzTitle]="'app.login.tab-login-mobile' | i18n">
       <nz-form-item>
         <nz-form-control [nzErrorTip]="mobileErrorTip">
           <nz-input-group nzSize="large" [nzPrefix]="prefixTemplateUser">
@@ -51,7 +51,7 @@
           </nz-row>
         </nz-form-control>
       </nz-form-item>
-    </nz-tab>
+    </nz-tab> -->
   </nz-tabset>
   <nz-form-item>
     <nz-col [nzSpan]="12">
@@ -75,7 +75,7 @@
     (click)="open('auth0', 'window')"
     class="icon iconfont icon-alipay-circle-fill"
   ></i>
-  <i nz-tooltip nzTooltipTitle="in fact Github via redirect" (click)="open('github')" class="icon iconfont icon-taobao-circle-fill"></i>
+  <i nz-tooltip nzTooltipTitle="in fact Github via redirect" (click)="open('github')" class="icon iconfont icon-github-fill"></i>
   <i (click)="open('weibo', 'window')" class="icon iconfont icon-weibo-circle-fill"></i>
   <a class="register" routerLink="/passport/register">{{ 'app.login.signup' | i18n }}</a>
 </div>

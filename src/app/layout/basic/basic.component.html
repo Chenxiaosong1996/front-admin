@@ -1,3 +1,85 @@
-basic components
+<nz-layout>
+  <nz-header class="my-header" [class]="{ 'nz-header--light': currentTheme == 'light' }">
+    <a [routerLink]="['/']" [style]="{ width: isCollapsed ? '80px' : '200px' }" class="text-center transition-all mr-20">
+      <img src="assets/images/angular.svg" class="my-logo" />
+    </a>
+    <a href="javascript:void(0)">
+      <i class="text-xxl iconfont" [class]="isCollapsed ? 'icon-outdent' : 'icon-indent'" (click)="isCollapsed = !isCollapsed"></i>
+    </a>
 
-<router-outlet></router-outlet> 
+    <ul class="my-list flex items-center">
+      <li class="my-list__item">
+        <a href="javascript:void(0)">
+          <i nz-icon nzType="bell" nzTheme="outline" class="text-xxl"></i>
+        </a>
+      </li>
+      <li class="my-list__item">
+        <a href="javascript:void(0)">
+          <i nz-icon nzType="setting" nzTheme="outline" class="text-xxl"></i>
+        </a>
+      </li>
+      <li class="my-list__item">
+        <a nz-dropdown [nzDropdownMenu]="menu">
+          <nz-avatar nzText="U" nzSize="small"></nz-avatar>
+          <span class="ml-5">admin</span>
+        </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu nzSelectable>
+            <li nz-menu-item>
+              <i nz-icon nzType="user" nzTheme="outline"></i>
+              <span class="ml-5">个人中心</span>
+            </li>
+            <li nz-menu-item>
+              <i nz-icon nzType="setting" nzTheme="outline"></i>
+              <span class="ml-5">个人设置</span>
+            </li>
+            <li nz-menu-divider></li>
+            <li nz-menu-item (click)="logout()">
+              <i nz-icon nzType="logout" nzTheme="outline"></i>
+              <span class="ml-5">退出登录</span>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </li>
+    </ul>
+  </nz-header>
+  <nz-layout class="my-body">
+    <!-- 右侧侧边栏 -->
+    <nz-sider class="my-sider" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTheme]="currentTheme" [nzTrigger]="null">
+      <ul class="my-menu" nz-menu nzMode="inline" [nzTheme]="currentTheme">
+        <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menus }"></ng-container>
+        <ng-template #menuTpl let-menus>
+          <ng-container *ngFor="let menu of menus">
+            <li *ngIf="!menu.children" nz-menu-item nzMatchRouter [nzDisabled]="menu.disabled">
+              <a [routerLink]="menu.link">
+                <i nz-icon [nzType]="menu.icon" *ngIf="menu.icon"></i>
+                <span>{{ menu.title }}</span>
+              </a>
+            </li>
+            <li
+              *ngIf="menu.children"
+              nz-submenu
+              nzMatchRouter
+              [nzOpen]="menu.open"
+              [nzTitle]="menu.title"
+              [nzIcon]="menu.icon"
+              [nzDisabled]="menu.disabled"
+            >
+              <ul>
+                <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }"></ng-container>
+              </ul>
+            </li>
+          </ng-container>
+        </ng-template>
+      </ul>
+    </nz-sider>
+    <!-- 左侧内容主体 -->
+    <nz-content [style]="{ 'margin-left': isCollapsed ? '100px' : '220px' }">
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>User</nz-breadcrumb-item>
+        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
+      </nz-breadcrumb>
+      <div class="inner-content"><router-outlet></router-outlet></div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

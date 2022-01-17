@@ -35,10 +35,10 @@ export class SessionStore {
 }
 
 export class CookieStore {
-    static set(key: string, val: string, hours: number = 2) {//设置cookie方法
+    static set(key: string, val: string, hours: number = 2, path: string = '/') {//设置cookie方法
         var date = new Date(); //获取当前时间
         date.setTime(date.getTime() + 1000 * 60 * 60 * hours); //格式化为cookie识别的时间
-        document.cookie = key + "=" + val + ";expires=" + date.toUTCString();  //设置cookie
+        document.cookie = key + "=" + val + ";expires=" + date.toUTCString() + ";path=" + path;  //设置cookie
     }
     static get(key: string) {//获取cookie方法
         /*获取cookie参数*/
@@ -55,8 +55,6 @@ export class CookieStore {
         return tips;
     }
     static del(key: string) { //删除cookie方法
-        var date = new Date(); //获取当前时间
-        date.setTime(date.getTime() - 10000); //将date设置为过去的时间
-        document.cookie = key + "=v; expires =" + date.toUTCString();//设置cookie
+        this.set(key, '', -24);
     }
 }

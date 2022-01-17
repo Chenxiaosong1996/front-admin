@@ -20,6 +20,7 @@ import { TokenService } from '../auth/token.guard';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 const CODEMESSAGE: { [key: number]: string } = {
+  0: '请求发起失败，请确保服务开启。',
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
   202: '一个请求已经进入后台排队（异步任务）。',

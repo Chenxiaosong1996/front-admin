@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutBasicComponent } from '../layout/basic/basic.component';
 import { LayoutBlankComponent } from '../layout/blank/blank.component';
 
-const routes: Routes = [
+export const routes: Routes = [
     {
         path: '',
         component: LayoutBasicComponent,

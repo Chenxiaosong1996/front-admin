@@ -24,7 +24,7 @@ export class SimpleGuard implements CanActivate, CanActivateChild, CanLoad, CanD
         if (TokenService.check()) {
             return true;
         }
-        this.router.navigateByUrl(environment.loginUrl)
+        this.router.navigateByUrl(environment.loginUrl);
         return false;
     }
     // canDeactivate(

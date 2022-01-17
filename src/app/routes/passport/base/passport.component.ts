@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { TokenService } from '@core';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'passport-lock',
@@ -6,4 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./passport.component.less']
 })
 
-export class UserPassPortComponent {}
+export class UserPassPortComponent implements OnInit {
+
+  constructor(private router: Router) { }
+
+  checkToken() {
+    if (TokenService.check()) {
+      this.router.navigateByUrl('');
+    }
+  }
+
+  ngOnInit(): void {
+    this.checkToken();
+  }
+}
