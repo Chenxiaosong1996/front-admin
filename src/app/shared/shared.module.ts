@@ -3,6 +3,7 @@ import { NgModule, Type } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { TranslateTimePipe } from './pipe/time';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
 
 // #region third libs
@@ -14,7 +15,7 @@ const THIRDMODULES: Array<Type<any>> = [];
 
 // #region your componets & directives
 const COMPONENTS: Array<Type<any>> = [];
-const DIRECTIVES: Array<Type<any>> = [];
+const DIRECTIVES: Array<Type<any>> = [TranslateTimePipe];
 // #endregion
 
 @NgModule({

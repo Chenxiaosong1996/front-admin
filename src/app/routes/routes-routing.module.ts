@@ -20,6 +20,11 @@ export const routes: Routes = [
                 loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
                 data: { preload: true }
             },
+            {
+                path: 'articles',
+                loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule),
+                data: { preload: false }
+            },
         ]
     },
     // passport

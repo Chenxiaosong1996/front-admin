@@ -1,0 +1,185 @@
+.text-left {
+    text-align: left
+}
+
+.text-center {
+    text-align: center
+}
+
+.text-right {
+    text-align: right
+}
+
+.cursor-pointer {
+    cursor: pointer
+}
+
+.cursor-auto {
+    cursor: auto
+}
+
+.cursor-not-allowed {
+    cursor: not-allowed
+}
+
+.transition-all {
+    transition: all .3s ease-in-out
+}
+
+.my-list {
+    margin: 0;
+    padding: 0;
+    list-style: none
+}
+
+.flex {
+    display: flex
+}
+
+.flex-row {
+    flex-direction: row
+}
+
+.flex-col {
+    flex-direction: column
+}
+
+.justify-start {
+    justify-content: start
+}
+
+.justify-center {
+    justify-content: center
+}
+
+.justify-end {
+    justify-content: end
+}
+
+.justify-around {
+    justify-content: space-around
+}
+
+.justify-between {
+    justify-content: space-between
+}
+
+.items-start {
+    align-items: flex-start
+}
+
+.items-center {
+    align-items: center
+}
+
+.items-end {
+    align-items: flex-end
+}
+
+.rounded {
+    border-radius: 4px
+}
+
+.rounded-md {
+    border-radius: 6px
+}
+
+.rounded-lg {
+    border-radius: 8px
+}
+
+.rounded-xl {
+    border-radius: 10px
+}
+
+.rounded-full {
+    border-radius: 9999px
+}
+
+.bg-white {
+    background-color: #fff
+}
+
+.bg-theme {
+    background-color: #7546c9
+}
+
+.text-white {
+    color: #fff
+}
+
+.text-theme {
+    color: #7546c9
+}
+
+.text-sm {
+    font-size: 12px
+}
+
+.text-md {
+    font-size: 14px
+}
+
+.text-lg {
+    font-size: 16px
+}
+
+.text-xl {
+    font-size: 18px
+}
+
+.text-xxl {
+    font-size: 20px
+}
+
+.m-5 {
+    margin: 5px
+}
+
+.m-10 {
+    margin: 10px
+}
+
+.m-15 {
+    margin: 15px
+}
+
+.ml-5 {
+    margin-left: 5px
+}
+
+.ml-10 {
+    margin-left: 10px
+}
+
+.ml-15 {
+    margin-left: 15px
+}
+
+.mr-5 {
+    margin-right: 5px
+}
+
+.mr-10 {
+    margin-right: 10px
+}
+
+.mr-15 {
+    margin-right: 15px
+}
+
+.mr-20 {
+    margin-right: 20px
+}
+
+.p-5 {
+    padding: 5px
+}
+
+.p-10 {
+    padding: 10px
+}
+
+.p-15 {
+    padding: 15px
+}

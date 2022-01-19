@@ -22,22 +22,28 @@ export class LayoutBasicComponent {
     },
     {
       level: 1,
-      title: 'Team Group',
+      title: '文章管理',
+      icon: 'read',
+      link: '/articles'
+    },
+    {
+      level: 1,
+      title: '用户管理',
       icon: 'team',
+      link: '/usercenter'
+    },
+    {
+      level: 1,
+      title: '设置',
+      icon: 'setting',
       open: false,
       children: [
         {
           level: 2,
-          title: 'User 1',
-          icon: 'user',
-          link: '/dashboard/v2'
+          title: '标签库',
+          icon: 'tags',
+          link: '/setting/tags'
         },
-        {
-          level: 2,
-          title: 'User 2',
-          icon: 'user',
-          link: '/dashboard/v3'
-        }
       ]
     }
   ];

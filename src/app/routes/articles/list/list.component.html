@@ -1,0 +1,35 @@
+<button nz-button nzType="primary" (click)="addRow()">新增</button>
+<br />
+<br />
+<nz-table #editRowTable nzBordered [nzData]="listOfData" [nzLoading]="loading">
+  <thead>
+    <tr>
+      <th>封面</th>
+      <th>标题</th>
+      <th>副标题</th>
+      <th>描述</th>
+      <th>标签</th>
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of editRowTable.data">
+      <td>
+        <img nz-image width="60" [nzSrc]="data.cover" [nzFallback]="errorFallback" *ngIf="data.cover" />
+        <img nz-image width="60" [nzSrc]="errorFallback" [nzFallback]="errorFallback" *ngIf="!data.cover" />
+      </td>
+      <td>{{ data.title }}</td>
+      <td>{{ data.subtitle }}</td>
+      <td>{{ data.description }}</td>
+      <td
+        ><nz-tag [nzColor]="'orange'" *ngFor="let tag of data.tags.split(',')">{{ tag }}</nz-tag></td
+      >
+      <td>{{ data.timestamp | moment }}</td>
+      <td>
+        <a>编辑</a>
+        <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">删除</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

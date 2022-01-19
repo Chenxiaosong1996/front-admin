@@ -1,12 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-v1',
   templateUrl: './v1.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardV1Component implements OnInit {
+export class DashboardV1Component {
   todoData = [
     {
       completed: true,
@@ -45,29 +44,4 @@ export class DashboardV1Component implements OnInit {
       content: `Walking through green fields ，sunshine in my eyes.`
     }
   ];
-
-  webSite!: any[];
-  salesData!: any[];
-  offlineChartData!: any[];
-
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {
-    // TODO: Wait for the page to load
-    setTimeout(() => this.genOnboarding(), 1000);
-  }
-
-  ngOnInit(): void {
-    this.http.get('/chart').subscribe((res: any) => {
-      this.webSite = res.visitData.slice(0, 10);
-      this.salesData = res.salesData;
-      this.offlineChartData = res.offlineChartData;
-      this.cdr.detectChanges();
-    });
-  }
-
-  private genOnboarding(): void {
-    const KEY = 'on-boarding';
-    this.http.get(`./assets/tmp/on-boarding.json`).subscribe(res => {
-      localStorage.setItem(KEY, '1');
-    });
-  }
 }

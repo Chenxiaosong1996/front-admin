@@ -1,0 +1,51 @@
+<form nz-form [nzAutoTips]="autoTips" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>标题</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <input nz-input formControlName="title" placeholder="请输入标题" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>副标题</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <input nz-input formControlName="subtitle" placeholder="请输入副标题" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>描述</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <input nz-input formControlName="description" placeholder="请输入描述" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>内容</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <div id="test-editormd"></div>
+      <!-- <input nz-input formControlName="content" placeholder="请输入内容" /> -->
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>标签</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <input nz-input formControlName="tags" placeholder="请输入标签" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>归属人</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <input nz-input formControlName="owner" placeholder="请输入归属人" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>封面</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <input nz-input formControlName="cover" placeholder="请输入封面" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzOffset]="4" [nzSpan]="20">
+      <button nz-button nzType="primary">保存</button>
+      <button nz-button nzType="primary">重置</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
