@@ -1,51 +1,60 @@
 <form nz-form [nzAutoTips]="autoTips" [formGroup]="validateForm" (ngSubmit)="submitForm()">
   <nz-form-item>
+    <nz-form-control [nzOffset]="4" [nzSpan]="20">
+      <button nz-button nzType="primary">保存</button>
+      <button class="ml-20" nz-button (click)="resetForm($event)">重置</button>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
     <nz-form-label [nzSpan]="4" nzRequired>标题</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <input nz-input formControlName="title" placeholder="请输入标题" />
+      <input nz-input formControlName="title" placeholder="请输入标题" maxlength="30" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzRequired>副标题</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <input nz-input formControlName="subtitle" placeholder="请输入副标题" />
+      <input nz-input formControlName="subtitle" placeholder="请输入副标题" maxlength="50" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzRequired>描述</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <input nz-input formControlName="description" placeholder="请输入描述" />
+      <textarea
+        nz-input
+        placeholder="请输入描述"
+        maxlength="200"
+        formControlName="description"
+        [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+      ></textarea>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzRequired>内容</nz-form-label>
     <nz-form-control [nzSpan]="20">
       <div id="test-editormd"></div>
-      <!-- <input nz-input formControlName="content" placeholder="请输入内容" /> -->
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSpan]="4" nzRequired>标签</nz-form-label>
+    <nz-form-label [nzSpan]="4">标签</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <input nz-input formControlName="tags" placeholder="请输入标签" />
+      <nz-select nzAllowClear nzMode="tags" nzPlaceHolder="请选择标签" formControlName="tags" (ngModelChange)="tagModelChange($event)">
+        <nz-option *ngFor="let option of tagsList" [nzLabel]="option.name" [nzValue]="option.name"></nz-option>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSpan]="4" nzRequired>归属人</nz-form-label>
+    <nz-form-label [nzSpan]="4" nzRequired>创作者</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <input nz-input formControlName="owner" placeholder="请输入归属人" />
+      <nz-select nzAllowClear nzPlaceHolder="请选择创作者" formControlName="owner">
+        <nz-option *ngFor="let option of ownersList" [nzLabel]="option.name" [nzValue]="option.code"></nz-option>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSpan]="4" nzRequired>封面</nz-form-label>
+    <nz-form-label [nzSpan]="4">封面</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <input nz-input formControlName="cover" placeholder="请输入封面" />
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-control [nzOffset]="4" [nzSpan]="20">
-      <button nz-button nzType="primary">保存</button>
-      <button nz-button nzType="primary">重置</button>
+      <input nz-input formControlName="cover" placeholder="请选择封面" />
     </nz-form-control>
   </nz-form-item>
 </form>

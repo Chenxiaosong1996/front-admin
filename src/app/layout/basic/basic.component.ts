@@ -34,7 +34,7 @@ export class LayoutBasicComponent {
     },
     {
       level: 1,
-      title: '设置',
+      title: '字典管理',
       icon: 'setting',
       open: false,
       children: [
@@ -44,8 +44,20 @@ export class LayoutBasicComponent {
           icon: 'tags',
           link: '/setting/tags'
         },
+        {
+          level: 2,
+          title: '创作者',
+          icon: 'profile',
+          link: '/setting/owners'
+        },
       ]
-    }
+    },
+    {
+      level: 1,
+      title: '日志管理',
+      icon: 'bug',
+      link: '/logger'
+    },
   ];
 
   constructor(private http: HttpClient, private router: Router, private message: NzMessageService) { }
