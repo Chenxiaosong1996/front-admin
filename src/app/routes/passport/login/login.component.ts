@@ -1,9 +1,9 @@
 import { TokenService } from '@core';
-import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { NzTabChangeEvent } from 'ng-zorro-antd/tabs';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 
@@ -16,6 +16,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 export class UserLoginComponent {
   constructor(
     fb: FormBuilder,
+    private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
@@ -113,7 +114,13 @@ export class UserLoginComponent {
           TokenService.set(res.data.token, Number(res.data.express) / 1000 / 60 / 60);
           // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
           this.message.success('登录成功!');
-          this.router.navigateByUrl('');
+          this.route.queryParams.subscribe((res: any) => {
+            if (res && res.redirect) {
+              this.router.navigateByUrl(res.redirect);
+            } else {
+              this.router.navigateByUrl('');
+            }
+          })
         } else {
           this.error = res.msg;
           this.cdr.detectChanges();

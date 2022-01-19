@@ -7,44 +7,44 @@ import { LayoutBasicComponent } from '../layout/basic/basic.component';
 import { LayoutBlankComponent } from '../layout/blank/blank.component';
 
 export const routes: Routes = [
-    {
-        path: '',
-        component: LayoutBasicComponent,
-        canActivate: [SimpleGuard],
-        canActivateChild: [SimpleGuard],
-        data: {},
-        children: [
-            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            {
-                path: 'dashboard',
-                loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-                data: { preload: true }
-            },
-            {
-                path: 'articles',
-                loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule),
-                data: { preload: false }
-            },
-        ]
-    },
-    // passport
-    { path: '', loadChildren: () => import('./passport/passport.module').then(m => m.PassportModule), data: { preload: true } },
-    { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
-    { path: '**', redirectTo: 'exception/404' }
+  {
+    path: '',
+    component: LayoutBasicComponent,
+    canActivate: [SimpleGuard],
+    canActivateChild: [SimpleGuard],
+    data: {},
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      {
+        path: 'dashboard',
+        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+        data: { preload: true, breadcrumb: '' }
+      },
+      {
+        path: 'articles',
+        loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule),
+        data: { preload: false, breadcrumb: '文章管理' }
+      }
+    ]
+  },
+  // passport
+  { path: '', loadChildren: () => import('./passport/passport.module').then(m => m.PassportModule), data: { preload: true } },
+  { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
+  { path: '**', redirectTo: 'exception/404' }
 ];
 
 @NgModule({
-    providers: [],
-    imports: [
-        RouterModule.forRoot(routes, {
-            enableTracing: false,
-            useHash: environment.useHash,
-            onSameUrlNavigation: 'reload',
-            // preloadingStrategy:  // 预先加载模块
-            scrollPositionRestoration: 'top',
-            scrollOffset: [0, 0],
-        })
-    ],
-    exports: [RouterModule]
+  providers: [],
+  imports: [
+    RouterModule.forRoot(routes, {
+      enableTracing: false,
+      useHash: environment.useHash,
+      onSameUrlNavigation: 'reload',
+      // preloadingStrategy:  // 预先加载模块
+      scrollPositionRestoration: 'top',
+      scrollOffset: [0, 0]
+    })
+  ],
+  exports: [RouterModule]
 })
-export class RouteRoutingModule { }
+export class RouteRoutingModule {}

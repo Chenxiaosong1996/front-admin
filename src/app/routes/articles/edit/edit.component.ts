@@ -146,16 +146,16 @@ export class ArticlesEditComponent implements OnInit, AfterViewInit {
             width: '100%',
             height: 740,
             path: environment.config.obs.url + environment.config.editor.path,
-            theme: 'dark',
-            previewTheme: 'dark',
-            editorTheme: 'pastel-on-dark',
+            theme: 'light',
+            previewTheme: 'light',
+            // editorTheme: 'pastel-on-dark',
             markdown: content,
             codeFold: true,
             placeholder: '请输入内容(支持markdown格式)',
             //syncScrolling : false,
             saveHTMLToTextarea: true, // 保存 HTML 到 Textarea
             searchReplace: true,
-            watch: false, // 关闭实时预览
+            watch: true, // 关闭实时预览
             htmlDecode: 'style,script,iframe|on*', // 开启 HTML 标签解析，为了安全性，默认不开启
             toolbar: false, //关闭工具栏
             toolbarIcons: function () {

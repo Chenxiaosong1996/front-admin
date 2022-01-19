@@ -11,6 +11,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./basic.component.less']
 })
 export class LayoutBasicComponent {
+  constructor(private http: HttpClient, private router: Router, private message: NzMessageService) { }
+
   currentTheme: 'light' | 'dark' = 'light';
   isCollapsed: boolean = false;
   menus = [
@@ -59,9 +61,7 @@ export class LayoutBasicComponent {
       link: '/logger'
     },
   ];
-
-  constructor(private http: HttpClient, private router: Router, private message: NzMessageService) { }
-
+  // 退出登录
   logout() {
     this.http
       .post('/user/logout', null)

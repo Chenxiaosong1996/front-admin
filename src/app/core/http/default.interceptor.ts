@@ -90,13 +90,9 @@ export class DefaultInterceptor implements HttpInterceptor {
         }
         break;
       case 401:
+        this.notification.remove();
         this.notification.error(`未登录或登录已过期，请重新登录。`, ``);
-        this.goTo(environment.loginUrl);
-        break;
-      case 403:
-      case 404:
-      case 500:
-        // this.goTo(`/exception/${ev.status}?url=${req.urlWithParams}`);
+        this.goTo(`${environment.loginUrl}?redirect=${location.pathname}`);
         break;
       default:
         if (ev instanceof HttpErrorResponse) {

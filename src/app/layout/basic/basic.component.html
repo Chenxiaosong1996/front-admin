@@ -1,4 +1,5 @@
 <nz-layout>
+  <!-- 顶部栏 -->
   <nz-header class="my-header" [class]="{ 'nz-header--light': currentTheme == 'light' }">
     <a [routerLink]="['/']" [style]="{ width: isCollapsed ? '80px' : '200px' }" class="text-center transition-all mr-20">
       <img src="assets/images/angular.svg" class="my-logo" />
@@ -44,7 +45,7 @@
     </ul>
   </nz-header>
   <nz-layout class="my-body">
-    <!-- 右侧侧边栏 -->
+    <!-- 侧边栏 -->
     <nz-sider class="my-sider" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTheme]="currentTheme" [nzTrigger]="null">
       <ul class="my-menu" nz-menu nzMode="inline" [nzTheme]="currentTheme">
         <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menus }"></ng-container>
@@ -73,12 +74,11 @@
         </ng-template>
       </ul>
     </nz-sider>
-    <!-- 左侧内容主体 -->
+    <!-- 内容主体 -->
     <nz-content [style]="{ 'margin-left': isCollapsed ? '100px' : '220px' }">
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>User</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-      </nz-breadcrumb>
+      <!-- 面包屑导航 -->
+      <nz-breadcrumb nzAutoGenerate></nz-breadcrumb>
+      <!-- 右侧内容展示 -->
       <div class="inner-content"><router-outlet></router-outlet></div>
     </nz-content>
   </nz-layout>

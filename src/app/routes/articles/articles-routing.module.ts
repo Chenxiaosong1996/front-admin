@@ -6,10 +6,10 @@ import { ArticlesEditComponent } from './edit/edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
-  { path: 'list', component: ArticlesListComponent },
-  { path: 'show', component: ArticlesShowComponent },
-  { path: 'add', component: ArticlesEditComponent },
-  { path: 'edit/:id', component: ArticlesEditComponent },
+  { path: 'list', component: ArticlesListComponent, data: { breadcrumb: '列表' } },
+  { path: 'show', component: ArticlesShowComponent, data: { breadcrumb: '详情' } },
+  { path: 'add', component: ArticlesEditComponent, data: { breadcrumb: '新增' } },
+  { path: 'edit/:id', component: ArticlesEditComponent, data: { breadcrumb: '编辑' } },
 ];
 
 @NgModule({

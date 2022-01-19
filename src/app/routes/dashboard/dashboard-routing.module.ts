@@ -4,7 +4,7 @@ import { DashboardV1Component } from './v1/v1.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'v1', pathMatch: 'full' },
-  { path: 'v1', component: DashboardV1Component },
+  { path: 'v1', component: DashboardV1Component, data: { breadcrumb: '首页' } },
 ];
 
 @NgModule({
