@@ -149,7 +149,7 @@ export class EditorMdComponent implements AfterViewInit, ControlValueAccessor {
       return environment.config.editor.toolbar;
     },
     previewCodeHighlight: true, // 关闭预览 HTML 的代码块高亮，默认开启
-    emoji: true,
+    emoji: false,
     taskList: true,
     tocm: false, // Using [TOCM]
     // tex: false, // 开启科学公式TeX语言支持，默认关闭
@@ -161,9 +161,6 @@ export class EditorMdComponent implements AfterViewInit, ControlValueAccessor {
     dialogMaskOpacity: 0.45, // 设置透明遮罩层的透明度，全局通用，默认值为0.1
     dialogMaskBgColor: '#000', // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
     imageUpload: false,
-    imageFormats: ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp'],
-    imageUploadURL: 'http://localhost:3000/fileOSS/singleuploader',
-    crossDomainUpload: true,
   };
   private onChange = (_: any) => { };
   private onTouched = () => { };

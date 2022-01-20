@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'app-articles-edit',
@@ -149,17 +150,29 @@ export class ArticlesEditComponent implements OnInit {
     }
 
     fileUpload(ev: any) {
-        console.log(ev.target.files)
         const file = ev.target.files[0];
-
+        // 校验文件格式以及大小
+        if (file.size / 1024 / 1024 > 2) {
+            this.message.warning('上传文件最大限制 2M !');
+            return;
+        }
+        const imgList = ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp'];
+        const nameList = file.name.split('.');
+        if (!imgList.includes(nameList[nameList.length - 1].toLowerCase())) {
+            this.message.warning('上传文件格式错误!');
+            return;
+        }
         const fd = new FormData();
         fd.append('count', '1');
         fd.append('name', file.name);
         fd.append('file', file);
 
         this.http.post('/fileOSS/singleuploader', fd)
-            .subscribe(res => {
-                console.log(res)
+            .subscribe((res: any) => {
+                if (res && res.success) {
+                    this.message.success('上传成功!');
+                    this.validateForm.get('cover')?.setValue(environment.ossUrl + res.data.fileUrl);
+                }
             })
     }
 }

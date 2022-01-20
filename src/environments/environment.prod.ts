@@ -3,6 +3,7 @@ export const environment = {
   useHash: false,
   loginUrl: 'passport/login',
   registerUrl: 'passport/register',
+  ossUrl: 'https://chenxiaosong1996.top/',
   api: {
     default: 'v1',
     v1: {
@@ -52,11 +53,9 @@ export const environment = {
         "code-block",
         "table",
         "datetime",
-        "emoji",
         "html-entities",
         "pagebreak",
         "|",
-        "goto-line",
         "watch",
         "preview",
         "fullscreen",
