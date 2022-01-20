@@ -4,7 +4,7 @@ import { environment } from '@env/environment';
 import { RouterModule, Routes } from '@angular/router';
 // layout
 import { LayoutBasicComponent } from '../layout/basic/basic.component';
-import { LayoutBlankComponent } from '../layout/blank/blank.component';
+// import { LayoutBlankComponent } from '../layout/blank/blank.component';
 
 export const routes: Routes = [
   {
@@ -18,17 +18,17 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-        data: { preload: true, breadcrumb: '' }
+        data: { breadcrumb: '' }
       },
       {
         path: 'articles',
         loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule),
-        data: { preload: false, breadcrumb: '文章管理' }
+        data: { breadcrumb: '文章管理' }
       }
     ]
   },
   // passport
-  { path: '', loadChildren: () => import('./passport/passport.module').then(m => m.PassportModule), data: { preload: true } },
+  { path: '', loadChildren: () => import('./passport/passport.module').then(m => m.PassportModule) },
   { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
   { path: '**', redirectTo: 'exception/404' }
 ];

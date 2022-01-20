@@ -25,7 +25,7 @@ export const environment = {
       url: 'https://chenxiaosong-1257029795.cos.ap-shanghai.myqcloud.com'
     },
     editor: {
-      path: '/scripts/editor.md/core/lib/',
+      path: 'assets/plugins/editormd/lib/',
       toolbar: ["undo",
         "redo",
         "|",

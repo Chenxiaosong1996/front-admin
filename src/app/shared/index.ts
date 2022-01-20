@@ -1,5 +1,5 @@
 // Components
-
+export * from './components/editor.md';
 // Pipe
 export * from './pipe/time';
 // Utils

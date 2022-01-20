@@ -1,22 +1,22 @@
 import { MyValidators } from '@shared';
-import { environment } from '@env/environment';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-declare var editormd: any;
 
 @Component({
     selector: 'app-articles-edit',
     templateUrl: './edit.component.html'
 })
-export class ArticlesEditComponent implements OnInit, AfterViewInit {
+export class ArticlesEditComponent implements OnInit {
     articleId: string = '';
     validateForm: FormGroup;
     tagsList: { name: string; code: string }[] = [];
     ownersList: { name: string; code: string }[] = [];
     editor: any;
+    editorSample: any;
+    editorLoaded: boolean = false;
 
     constructor(private fb: FormBuilder, private http: HttpClient, private message: NzMessageService, private route: ActivatedRoute) {
         const { required, maxLength, minLength } = MyValidators;
@@ -81,7 +81,6 @@ export class ArticlesEditComponent implements OnInit, AfterViewInit {
     }
 
     submitForm(): void {
-        this.validateForm.get('content')?.setValue(this.editor.getMarkdown());
         if (this.validateForm.valid) {
             if (!this.articleId) {
                 this.http.post('/article/blogarticle/create', { ...this.validateForm.value, tags: this.validateForm.value.tags.join(',') }).subscribe((res: any) => {
@@ -135,76 +134,32 @@ export class ArticlesEditComponent implements OnInit, AfterViewInit {
                     this.validateForm.get('tags')?.setValue(res.data.tags.split(',').filter((item: string) => item));
                     this.validateForm.get('owner')?.setValue(res.data.owner);
                     this.validateForm.get('cover')?.setValue(res.data.cover);
-
-                    this.initEditor(this.validateForm.value.content);
                 }
             })
     }
-    // 初始化编辑器
-    initEditor(content: string = '') {
-        this.editor = editormd('test-editormd', {
-            width: '100%',
-            height: 740,
-            path: environment.config.obs.url + environment.config.editor.path,
-            theme: 'light',
-            previewTheme: 'light',
-            // editorTheme: 'pastel-on-dark',
-            markdown: content,
-            codeFold: true,
-            placeholder: '请输入内容(支持markdown格式)',
-            //syncScrolling : false,
-            saveHTMLToTextarea: true, // 保存 HTML 到 Textarea
-            searchReplace: true,
-            watch: true, // 关闭实时预览
-            htmlDecode: 'style,script,iframe|on*', // 开启 HTML 标签解析，为了安全性，默认不开启
-            toolbar: false, //关闭工具栏
-            toolbarIcons: function () {
-                //自定义工具栏，后面有详细介绍
-                // return editormd.toolbarModes["mini"]; // full, simple, mini
-                return environment.config.editor.toolbar;
-            },
-            //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
-            emoji: true,
-            taskList: true,
-            tocm: false, // Using [TOCM]
-            // tex: false, // 开启科学公式TeX语言支持，默认关闭
-            // flowChart: false, // 开启流程图支持，默认关闭
-            // sequenceDiagram: false, // 开启时序/序列图支持，默认关闭,
-            //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
-            //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
-            //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
-            //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
-            //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
-            imageUpload: true,
-            imageFormats: ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp'],
-            imageUploadURL: './php/upload.php',
-            onload: function () {
-                // console.log("onload", this);
-                //this.fullscreen();
-                //this.unwatch();
-                //this.watch().fullscreen();
-                //this.setMarkdown("#PHP");
-                //this.width("100%");
-                //this.height(480);
-                //this.resize("100%", 640);
-            }
-        });
-    }
-
     ngOnInit(): void {
         this.initDictionary();
-    }
 
-    ngAfterViewInit(): void {
         this.route.params.subscribe((res: any) => {
             if (res.id) {
                 this.articleId = res.id;
                 this.getArticleDetail();
-            } else {
-                this.initEditor();
             }
         })
     }
-}
 
-// current locale is key of the MyErrorsOptions
+    fileUpload(ev: any) {
+        console.log(ev.target.files)
+        const file = ev.target.files[0];
+
+        const fd = new FormData();
+        fd.append('count', '1');
+        fd.append('name', file.name);
+        fd.append('file', file);
+
+        this.http.post('/fileOSS/singleuploader', fd)
+            .subscribe(res => {
+                console.log(res)
+            })
+    }
+}

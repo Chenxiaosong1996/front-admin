@@ -5,7 +5,8 @@
       <img src="assets/images/angular.svg" class="my-logo" />
     </a>
     <a href="javascript:void(0)">
-      <i class="text-xxl iconfont" [class]="isCollapsed ? 'icon-outdent' : 'icon-indent'" (click)="isCollapsed = !isCollapsed"></i>
+      <i nz-icon nzType="menu-fold" nzTheme="outline" class="text-xxl" (click)="isCollapsed = !isCollapsed" *ngIf="!isCollapsed"></i>
+      <i nz-icon nzType="menu-unfold" nzTheme="outline" class="text-xxl" (click)="isCollapsed = !isCollapsed" *ngIf="isCollapsed"></i>
     </a>
 
     <ul class="my-list flex items-center">
