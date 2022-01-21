@@ -63,7 +63,7 @@
       <ng-container *nzDrawerContent>
         <div style="margin: -24px">
           <a [routerLink]="['/']" class="text-center block">
-            <img src="assets/images/angular.svg" height="60" class="m-10" />
+            <img src="assets/images/angular.svg" height="36" class="m-10" />
           </a>
           <layout-menu [mode]="'vertical'" [theme]="currentTheme" [isCollapsed]="false" [menus]="menus"></layout-menu>
         </div>
@@ -71,17 +71,17 @@
     </nz-drawer>
     <!-- PC端菜单 -->
     <nz-sider
-      class="my-sider"
+      class="my-sider transition-all"
       nzCollapsible
       [(nzCollapsed)]="isCollapsed"
       [nzTheme]="currentTheme"
       [nzTrigger]="null"
-      *ngIf="!isSmallScreen"
+      [style]="{ left: isSmallScreen ? '-100%' : '' }"
     >
       <layout-menu [theme]="currentTheme" [isCollapsed]="isCollapsed" [menus]="menus"></layout-menu>
     </nz-sider>
     <!-- 内容主体 -->
-    <nz-content [style]="{ 'margin-left': isSmallScreen ? '20px' : isCollapsed ? '100px' : '220px' }">
+    <nz-content class="transition-all" [style]="{ 'margin-left': isSmallScreen ? '20px' : isCollapsed ? '100px' : '220px' }">
       <!-- 面包屑导航 -->
       <nz-breadcrumb nzAutoGenerate></nz-breadcrumb>
       <!-- 右侧内容展示 -->
