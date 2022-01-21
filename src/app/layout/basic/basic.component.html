@@ -1,14 +1,18 @@
 <nz-layout>
   <!-- 顶部栏 -->
   <nz-header class="my-header" [class]="{ 'nz-header--light': currentTheme == 'light' }">
-    <a [routerLink]="['/']" [style]="{ width: isCollapsed ? '80px' : '200px' }" class="text-center transition-all mr-20">
+    <a
+      [routerLink]="['/']"
+      [style]="{ width: isSmallScreen ? '0' : isCollapsed ? '80px' : '200px' }"
+      class="text-center transition-all mr-20"
+    >
       <img src="assets/images/angular.svg" class="my-logo" />
     </a>
     <a href="javascript:void(0)">
-      <i nz-icon nzType="menu-fold" nzTheme="outline" class="text-xxl" (click)="isCollapsed = !isCollapsed" *ngIf="!isCollapsed"></i>
-      <i nz-icon nzType="menu-unfold" nzTheme="outline" class="text-xxl" (click)="isCollapsed = !isCollapsed" *ngIf="isCollapsed"></i>
+      <i nz-icon nzType="menu-fold" nzTheme="outline" class="text-xxl" (click)="toggleCollapse()" *ngIf="!isCollapsed"></i>
+      <i nz-icon nzType="menu-unfold" nzTheme="outline" class="text-xxl" (click)="toggleCollapse()" *ngIf="isCollapsed"></i>
     </a>
-
+    <!-- 顶部工具栏 -->
     <ul class="my-list flex items-center">
       <li class="my-list__item">
         <a href="javascript:void(0)">
@@ -45,38 +49,39 @@
       </li>
     </ul>
   </nz-header>
+  <!-- 主体内容 -->
   <nz-layout class="my-body">
-    <!-- 侧边栏 -->
-    <nz-sider class="my-sider" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTheme]="currentTheme" [nzTrigger]="null">
-      <ul class="my-menu" nz-menu nzMode="inline" [nzTheme]="currentTheme">
-        <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menus }"></ng-container>
-        <ng-template #menuTpl let-menus>
-          <ng-container *ngFor="let menu of menus">
-            <li *ngIf="!menu.children" nz-menu-item nzMatchRouter [nzDisabled]="menu.disabled">
-              <a [routerLink]="menu.link">
-                <i nz-icon [nzType]="menu.icon" *ngIf="menu.icon"></i>
-                <span>{{ menu.title }}</span>
-              </a>
-            </li>
-            <li
-              *ngIf="menu.children"
-              nz-submenu
-              nzMatchRouter
-              [nzOpen]="menu.open"
-              [nzTitle]="menu.title"
-              [nzIcon]="menu.icon"
-              [nzDisabled]="menu.disabled"
-            >
-              <ul>
-                <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }"></ng-container>
-              </ul>
-            </li>
-          </ng-container>
-        </ng-template>
-      </ul>
+    <!-- 移动端菜单 -->
+    <nz-drawer
+      nzTitle=""
+      nzPlacement="left"
+      [nzClosable]="false"
+      [nzVisible]="isShowDrawer"
+      (nzOnClose)="isShowDrawer = false"
+      *ngIf="isSmallScreen"
+    >
+      <ng-container *nzDrawerContent>
+        <div style="margin: -24px">
+          <a [routerLink]="['/']" class="text-center block">
+            <img src="assets/images/angular.svg" height="60" class="m-10" />
+          </a>
+          <layout-menu [mode]="'vertical'" [theme]="currentTheme" [isCollapsed]="false" [menus]="menus"></layout-menu>
+        </div>
+      </ng-container>
+    </nz-drawer>
+    <!-- PC端菜单 -->
+    <nz-sider
+      class="my-sider"
+      nzCollapsible
+      [(nzCollapsed)]="isCollapsed"
+      [nzTheme]="currentTheme"
+      [nzTrigger]="null"
+      *ngIf="!isSmallScreen"
+    >
+      <layout-menu [theme]="currentTheme" [isCollapsed]="isCollapsed" [menus]="menus"></layout-menu>
     </nz-sider>
     <!-- 内容主体 -->
-    <nz-content [style]="{ 'margin-left': isCollapsed ? '100px' : '220px' }">
+    <nz-content [style]="{ 'margin-left': isSmallScreen ? '20px' : isCollapsed ? '100px' : '220px' }">
       <!-- 面包屑导航 -->
       <nz-breadcrumb nzAutoGenerate></nz-breadcrumb>
       <!-- 右侧内容展示 -->

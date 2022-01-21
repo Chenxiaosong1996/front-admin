@@ -1,20 +1,24 @@
 import { TokenService } from '@core';
-import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { environment } from '@env/environment';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'layout-basic',
   templateUrl: './basic.component.html',
   styleUrls: ['./basic.component.less']
 })
-export class LayoutBasicComponent {
+export class LayoutBasicComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private router: Router, private message: NzMessageService) { }
 
   currentTheme: 'light' | 'dark' = 'light';
   isCollapsed: boolean = false;
+  isSmallScreen: boolean = false;
+  isShowDrawer: boolean = false;
+  rooterChange: Subscription | undefined; // 声明订阅对象
   menus = [
     {
       level: 1,
@@ -74,5 +78,47 @@ export class LayoutBasicComponent {
         }
         this.router.navigateByUrl(environment.loginUrl);
       })
+  }
+
+  watchScreen() {
+    const width = document.body.clientWidth || document.body.offsetWidth;
+    if (width <= environment.config.media.screen.minWidth) {
+      this.isSmallScreen = true;
+      this.listenRouterChange();
+    } else {
+      this.isSmallScreen = false;
+    }
+  }
+
+  /**
+   * 监听路由变化
+   */
+  listenRouterChange() {
+    this.rooterChange = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isShowDrawer = false;
+      }
+    });
+  }
+
+  toggleCollapse() {
+    if (this.isSmallScreen) {
+      this.isShowDrawer = !this.isShowDrawer;
+      return;
+    }
+    this.isCollapsed = !this.isCollapsed;
+  }
+
+  ngOnInit() {
+    this.watchScreen();
+    window.onresize = () => {
+      this.watchScreen();
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.rooterChange) {
+      this.rooterChange.unsubscribe();
+    }
   }
 }

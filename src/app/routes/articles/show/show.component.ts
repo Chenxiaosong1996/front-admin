@@ -1,12 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-articles-show',
-    templateUrl: './show.component.html',
+  selector: 'app-articles-show',
+  templateUrl: './show.component.html',
+  styles: [
+    `
+      nz-page-header {
+        margin: -20px;
+      }
+    `
+  ]
 })
-
 export class ArticlesShowComponent implements OnInit {
+  constructor(private http: HttpClient, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {}
 
-    ngOnInit() { }
+  articleId: string = '';
+  loading: boolean = true;
+  articleDetail: any = null;
+  errorFallback: string = 'https://img.alicdn.com/tfs/TB1Z0PywTtYBeNjy1XdXXXXyVXa-186-200.svg';
 
+  ngOnInit() {
+    this.route.params.subscribe((res: any) => {
+      if (res.id) {
+        this.articleId = res.id;
+        this.getArticleDetail();
+      }
+    });
+  }
+
+  // 获取详情数据
+  getArticleDetail() {
+    this.http
+      .get(`/article/blogarticle/detail/${this.articleId}`)
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+          this.cdr.detectChanges();
+        })
+      )
+      .subscribe((res: any) => {
+        if (res && res.success) {
+          this.articleDetail = res.data;
+          this.articleDetail.tags = res.data.tags.split(',').filter((item: string) => item);
+        }
+      });
+  }
 }

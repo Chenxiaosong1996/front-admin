@@ -1,5 +1,6 @@
 // Components
 export * from './components/editor.md';
+export * from './components/upload';
 // Pipe
 export * from './pipe/time';
 // Utils

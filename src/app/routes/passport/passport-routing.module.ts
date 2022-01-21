@@ -13,12 +13,12 @@ const routes: Routes = [
       {
         path: 'login',
         component: UserLoginComponent,
-        data: { title: '登录', titleI18n: 'app.login.login' }
+        data: { title: '登录' }
       },
       {
         path: 'lock',
         component: UserLockComponent,
-        data: { title: '锁屏', titleI18n: 'app.lock' }
+        data: { title: '锁屏' }
       },
     ]
   },

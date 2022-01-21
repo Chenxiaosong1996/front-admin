@@ -18,6 +18,11 @@ export const environment = {
     }
   },
   config: {
+    media: {
+      screen: {
+        minWidth: 768
+      }
+    },
     obs: {
       url: 'https://chenxiaosong-1257029795.cos.ap-shanghai.myqcloud.com'
     },

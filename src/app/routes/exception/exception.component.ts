@@ -19,7 +19,6 @@ export class ExceptionComponent {
   ) { }
 
   pathHome() {
-    console.log(1)
-    this.router.navigateByUrl('/')
+    this.router.navigateByUrl('/');
   }
 }

@@ -201,7 +201,7 @@ export class EditorMdComponent implements AfterViewInit, ControlValueAccessor {
       onload: function () {
         that.loaded.emit(true);
         if (that.disabled) {
-          this.hideToolbar();
+          this.previewing();
         }
         //this.fullscreen();
         //this.unwatch();

@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateTimePipe } from './pipe/time';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
 import { EditorMdComponent } from './components/editor.md';
+import { UploaderComponent } from './components/upload';
 
 // #region third libs
 // import { NgxTinymceModule } from 'ngx-tinymce';
@@ -15,7 +16,7 @@ const THIRDMODULES: Array<Type<any>> = [];
 // #endregion
 
 // #region your componets & directives
-const COMPONENTS: Array<Type<any>> = [EditorMdComponent];
+const COMPONENTS: Array<Type<any>> = [EditorMdComponent, UploaderComponent];
 const DIRECTIVES: Array<Type<any>> = [TranslateTimePipe];
 // #endregion
 
