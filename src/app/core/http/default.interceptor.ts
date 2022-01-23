@@ -80,9 +80,6 @@ export class DefaultInterceptor implements HttpInterceptor {
           const body = ev.body;
           if (body && body.code !== 200) {
             this.injector.get(NzMessageService).error(body.message || CODEMESSAGE[body.status]);
-            // 注意：这里如果继续抛出错误会被行254的 catchError 二次拦截，导致外部实现的 Pipe、subscribe 操作被中断，例如：this.http.get('/').subscribe() 不会触发
-            // 如果你希望外部实现，需要手动移除行254
-            // return throwError({});
           } else {
             // 或者依然保持完整的格式
             return of(ev);
@@ -90,6 +87,7 @@ export class DefaultInterceptor implements HttpInterceptor {
         }
         break;
       case 401:
+        TokenService.clear();
         this.notification.remove();
         this.notification.error(`未登录或登录已过期，请重新登录。`, ``);
         this.goTo(`${environment.loginUrl}?redirect=${location.pathname}`);
@@ -103,11 +101,7 @@ export class DefaultInterceptor implements HttpInterceptor {
         }
         break;
     }
-    if (ev instanceof HttpErrorResponse) {
-      return throwError(ev);
-    } else {
-      return of(ev);
-    }
+    return of(ev);
   }
 
   private getAdditionalHeaders(headers?: HttpHeaders): { [name: string]: string } {

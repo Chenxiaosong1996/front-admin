@@ -19,8 +19,9 @@ export class EditorMdComponent implements AfterViewInit, ControlValueAccessor {
   editorMdId: string = '';
   editorContent: string = '';
 
-  @Input() theme: string = 'default';
+  @Input() theme: string = 'twilight';
   @Input() disabled: boolean = false;
+  @Input() watch: boolean = false; // 实时预览
   @Input() defaulted: 'markdown' | 'html' = 'markdown';
   @Input() placeholder: string = '请输入内容(支持markdown格式)';
   @Output() loaded = new EventEmitter<boolean>();
@@ -140,7 +141,6 @@ export class EditorMdComponent implements AfterViewInit, ControlValueAccessor {
     syncScrolling: true,
     saveHTMLToTextarea: true, // 保存 HTML 到 Textarea
     searchReplace: true,
-    watch: true, // 实时预览
     htmlDecode: 'style,script,iframe|on*', // 开启 HTML 标签解析，为了安全性，默认不开启
     toolbar: true, // 工具栏
     toolbarIcons: function () {
@@ -191,24 +191,28 @@ export class EditorMdComponent implements AfterViewInit, ControlValueAccessor {
 
   private createEditor(editorConfig: any): void {
     const that = this;
-    this.markdownEditor = editormd(this.editorMdId, {
+    that.markdownEditor = editormd(that.editorMdId, {
       ...editorConfig,
-      theme: this.theme,
-      previewTheme: this.theme,
-      editorTheme: this.theme,
-      readOnly: this.disabled,
-      placeholder: this.placeholder,
+      watch: that.disabled ? true : that.watch,
+      theme: that.theme,
+      previewTheme: that.theme,
+      editorTheme: that.theme,
+      readOnly: that.disabled,
+      placeholder: that.placeholder,
       onload: function () {
         that.loaded.emit(true);
+        // 防止渲染为空的情况
+        if (that.editorContent) {
+          this.setMarkdown(that.editorContent);
+        }
         if (that.disabled) {
           this.previewing();
         }
+        // this.resize("100%", 640);
         //this.fullscreen();
-        //this.unwatch();
         //this.watch().fullscreen();
-        //this.width("100%");
+        // this.width("100%");
         //this.height(480);
-        //this.resize("100%", 640);
       },
       onchange: function () {
         if (that.defaulted == 'html') {

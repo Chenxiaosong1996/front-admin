@@ -1,0 +1,22 @@
+<nz-page-header nzBackIcon [nzGhost]="false" [nzBackIcon]="'rollback'">
+  <nz-page-header-content>
+    <nz-descriptions nzTitle="" nzBordered>
+      <nz-descriptions-item nzTitle="标题" [nzSpan]="3">{{ articleDetail && articleDetail.title }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="副标题" [nzSpan]="3">{{ articleDetail && articleDetail.subtitle }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="描述" [nzSpan]="3">{{ articleDetail && articleDetail.description }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="标签">
+        <nz-tag [nzColor]="'orange'" *ngFor="let tag of articleDetail && articleDetail.tags">{{ tag }}</nz-tag>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="创作者">{{ ownersObj[articleDetail && articleDetail.owner] }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="封面">
+        <img nz-image width="60" [nzSrc]="articleDetail.cover" [nzFallback]="errorFallback" *ngIf="articleDetail && articleDetail.cover" />
+        <img nz-image width="60" [nzSrc]="errorFallback" [nzFallback]="errorFallback" *ngIf="!articleDetail || !articleDetail.cover" />
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="内容" [nzSpan]="3">
+        <div class="w-full">
+          <app-editor-md [disabled]="true" placeholder="" [(ngModel)]="articleDetail && articleDetail.content"> </app-editor-md>
+        </div>
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </nz-page-header-content>
+</nz-page-header>

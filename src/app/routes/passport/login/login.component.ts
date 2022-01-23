@@ -96,7 +96,7 @@ export class UserLoginComponent {
     this.loading = true;
     this.cdr.detectChanges();
     this.http
-      .post('/user/login', {
+      .post('/auth/login', {
         type: this.type,
         username: this.userName.value,
         password: this.password.value

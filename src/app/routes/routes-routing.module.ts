@@ -21,10 +21,15 @@ export const routes: Routes = [
         data: { breadcrumb: '' }
       },
       {
-        path: 'articles',
-        loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule),
-        data: { breadcrumb: '文章管理' }
-      }
+        path: '',
+        loadChildren: () => import('./management/management.module').then(m => m.ManagementModule),
+        data: { breadcrumb: '' }
+      },
+      // {
+      //   path: 'articles',
+      //   loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule),
+      //   data: { breadcrumb: '用户管理' }
+      // }
     ]
   },
   // passport
@@ -47,4 +52,4 @@ export const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class RouteRoutingModule {}
+export class RouteRoutingModule { }

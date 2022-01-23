@@ -20,12 +20,12 @@
     </div>
     <div nz-col [nzSpan]="8" class="text-right">
       <button nz-button nzType="primary" (click)="addRow()">新增</button>
-      <button nz-button class="ml-20" [nzType]="'primary'" (click)="loadData()">查询</button>
-      <button nz-button class="ml-20" (click)="resetForm()">重置</button>
+      <button nz-button class="ml-10" [nzType]="'primary'" (click)="loadData()">查询</button>
+      <button nz-button class="ml-10" (click)="resetForm()">重置</button>
     </div>
   </div>
 </form>
-<nz-table #editRowTable nzBordered [nzData]="listOfData" [nzLoading]="loading">
+<nz-table #editRowTable nzBordered [nzData]="listOfData" [nzLoading]="loading" [nzScroll]="{ x: '100%' }">
   <thead>
     <tr>
       <th nzWidth="92px">封面</th>
@@ -48,13 +48,13 @@
       <td>{{ data.subtitle }}</td>
       <td>{{ data.description }}</td>
       <td>
-        <nz-tag [nzColor]="'orange'" *ngFor="let tag of data.tags">{{ tag }}</nz-tag>
+        <nz-tag [nzColor]="'processing'" *ngFor="let tag of data.tags">{{ tag }}</nz-tag>
       </td>
       <td>{{ ownersObj[data.owner] }}</td>
       <td>{{ data.timestamp | moment }}</td>
       <td>
-        <a class="mr-20" [routerLink]="['/articles/show/', data.id]">详情</a>
-        <a class="mr-20" [routerLink]="['/articles/edit/', data.id]">编辑</a>
+        <a class="mr-10" [routerLink]="['/articles/show/', data.id]">详情</a>
+        <a class="mr-10" [routerLink]="['/articles/edit/', data.id]">编辑</a>
         <a nz-popconfirm nzPopconfirmTitle="是否删除此项文章?" (nzOnConfirm)="deleteRow(data.id)">删除</a>
       </td>
     </tr>

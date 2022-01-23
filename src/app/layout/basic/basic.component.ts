@@ -68,7 +68,7 @@ export class LayoutBasicComponent implements OnInit, OnDestroy {
   // 退出登录
   logout() {
     this.http
-      .post('/user/logout', null)
+      .post('/auth/logout', null)
       .subscribe((res: any) => {
         if (TokenService.check()) {
           TokenService.clear();
