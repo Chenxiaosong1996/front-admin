@@ -11,7 +11,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
       nz-page-header {
         margin: -20px;
       }
-      /deep/ .editormd-preview-active {
+      ::ng-deep .editormd-preview-active {
         padding: 20px !important;
       }
     `
