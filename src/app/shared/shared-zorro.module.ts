@@ -1,7 +1,6 @@
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
-import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
@@ -53,7 +52,6 @@ export const SHARED_ZORRO_MODULES = [
   NzTimePickerModule,
   NzTagModule,
   NzInputNumberModule,
-  NzBreadCrumbModule,
   NzListModule,
   NzSwitchModule,
   NzRadioModule,

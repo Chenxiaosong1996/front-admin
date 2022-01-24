@@ -32,6 +32,10 @@
     transition: all .3s ease-in-out
 }
 
+.duration-15 {
+    transition-duration: 0.15s;
+}
+
 .my-list {
     margin: 0;
     padding: 0;

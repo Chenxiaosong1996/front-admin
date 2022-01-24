@@ -15,7 +15,7 @@ export class LayoutBasicComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private router: Router, private message: NzMessageService) { }
 
   currentTheme: 'light' | 'dark' = 'light';
-  isCollapsed: boolean = false;
+  isCollapsed: boolean = true; // 默认收起菜单
   isSmallScreen: boolean = false;
   isShowDrawer: boolean = false;
   rooterChange: Subscription | undefined; // 声明订阅对象

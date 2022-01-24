@@ -1,35 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, Type } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TranslateTimePipe } from './pipe/time';
-import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
-import { EditorMdComponent } from './components/editor.md';
 import { UploaderComponent } from './components/upload';
-
-// #region third libs
-// import { NgxTinymceModule } from 'ngx-tinymce';
-// import { UEditorModule } from 'ngx-ueditor';
-
-const THIRDMODULES: Array<Type<any>> = [];
-// #endregion
+import { EditorMdComponent } from './components/editor.md';
+import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
 
 // #region your componets & directives
-const COMPONENTS: Array<Type<any>> = [EditorMdComponent, UploaderComponent];
+const COMPONENTS: Array<Type<any>> = [UploaderComponent, EditorMdComponent];
 const DIRECTIVES: Array<Type<any>> = [TranslateTimePipe];
 // #endregion
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    ReactiveFormsModule,
-    ...SHARED_ZORRO_MODULES,
-    // third libs
-    ...THIRDMODULES
-  ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ...SHARED_ZORRO_MODULES],
   declarations: [
     // your components
     ...COMPONENTS,
@@ -39,13 +23,10 @@ const DIRECTIVES: Array<Type<any>> = [TranslateTimePipe];
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule,
     ...SHARED_ZORRO_MODULES,
-    // third libs
-    ...THIRDMODULES,
     // your components
     ...COMPONENTS,
     ...DIRECTIVES
   ]
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -25,14 +25,8 @@ export const routes: Routes = [
         loadChildren: () => import('./management/management.module').then(m => m.ManagementModule),
         data: { breadcrumb: '' }
       },
-      // {
-      //   path: 'articles',
-      //   loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule),
-      //   data: { breadcrumb: '用户管理' }
-      // }
     ]
   },
-  // passport
   { path: '', loadChildren: () => import('./passport/passport.module').then(m => m.PassportModule) },
   { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
   { path: '**', redirectTo: 'exception/404' }

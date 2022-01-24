@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'layout-menu',
-  template: `<ul class="my-menu" nz-menu [nzMode]="mode" [nzTheme]="theme" [nzInlineCollapsed]="isCollapsed">
+  template: `<ul class="my-menu bg-white" nz-menu [nzMode]="mode" [nzTheme]="theme" [nzInlineCollapsed]="isCollapsed">
   <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menus }"></ng-container>
   <ng-template #menuTpl let-menus>
     <ng-container *ngFor="let menu of menus">
