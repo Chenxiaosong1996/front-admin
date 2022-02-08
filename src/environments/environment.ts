@@ -11,7 +11,7 @@ export const environment = {
   api: {
     default: 'v1',
     v1: {
-      baseUrl: 'https://chenxiaosong1996.top/api',
+      baseUrl: 'http://localhost:3000',
       refreshTokenEnabled: true,
       refreshTokenType: 'auth-refresh',
     },

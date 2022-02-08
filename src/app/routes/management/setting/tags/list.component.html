@@ -20,6 +20,7 @@
       </nz-form-item>
     </div>
     <div nz-col [nzSpan]="8" class="text-right">
+      <button nz-button class="ml-10" [nzType]="'primary'" (click)="addRow()">新增</button>
       <button nz-button class="ml-10" [nzType]="'primary'" (click)="loadData()">查询</button>
       <button nz-button class="ml-10" (click)="resetForm()">重置</button>
     </div>
@@ -28,31 +29,27 @@
 <nz-table #editRowTable nzBordered [nzData]="listOfData" [nzLoading]="loading" [nzScroll]="{ x: '100%' }">
   <thead>
     <tr>
-      <th nzWidth="92px">头像</th>
-      <th>用户名</th>
-      <th>账号</th>
-      <th>性别</th>
+      <th>标签名</th>
       <th>状态</th>
-      <th>创建时间</th>
       <th>操作</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of editRowTable.data">
-      <td>
-        <img nz-image width="60" [nzSrc]="data.cover" [nzFallback]="errorFallback" *ngIf="data.cover" />
-        <img nz-image width="60" [nzSrc]="errorFallback" [nzFallback]="errorFallback" *ngIf="!data.cover" />
-      </td>
       <td>{{ data.name }}</td>
-      <td>{{ data.username }}</td>
-      <td>{{ data.gender == '1' ? '女' : '男' }}</td>
       <td>
         <nz-tag [nzColor]="data.enable == '0' ? 'error' : 'success'">{{ data.enable == '0' ? '禁用' : '启用' }}</nz-tag>
       </td>
-      <td>{{ data.create_time | moment }}</td>
       <td>
-        <a class="mr-10" nz-popconfirm [nzPopconfirmTitle]="'是否' + data.enable == '0' ? '启用' : '禁用' + '此账号?'" (nzOnConfirm)="enableRow(data.id, data.enable)">{{data.enable == '0' ? '启用' : '禁用'}}</a>
-        <a nz-popconfirm nzPopconfirmTitle="是否删除此账号?" (nzOnConfirm)="deleteRow(data.id)">删除</a>
+        <a class="mr-10" (click)="addRow(data.id, data.name)">编辑</a>
+        <a
+          class="mr-10"
+          nz-popconfirm
+          [nzPopconfirmTitle]="'是否' + data.enable == '0' ? '启用' : '禁用' + '此标签?'"
+          (nzOnConfirm)="enableRow(data.id, data.enable)"
+          >{{ data.enable == '0' ? '启用' : '禁用' }}</a
+        >
+        <a nz-popconfirm nzPopconfirmTitle="是否删除此标签?" (nzOnConfirm)="deleteRow(data.id)">删除</a>
       </td>
     </tr>
   </tbody>

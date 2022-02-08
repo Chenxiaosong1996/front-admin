@@ -91,14 +91,14 @@ export class UploaderComponent implements ControlValueAccessor {
         const file = ev.target.files[0];
         // 校验文件格式以及大小
         if (file.size > this.max) {
-            this.message.warning(`上传文件最大限制 ${this.max / 1024 / 1024}M !`);
+            this.message.error(`上传文件最大限制 ${this.max / 1024 / 1024}M !`);
             this.clearFile();
             return;
         }
         const imgList = this.type.map(t => t.toLowerCase());
         const nameList = file.name.split('.');
         if (!imgList.includes(nameList[nameList.length - 1].toLowerCase())) {
-            this.message.warning('上传文件格式错误!');
+            this.message.error('上传文件格式错误!');
             this.clearFile();
             return;
         }
