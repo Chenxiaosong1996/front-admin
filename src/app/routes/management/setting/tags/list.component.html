@@ -31,6 +31,7 @@
     <tr>
       <th>标签名</th>
       <th>状态</th>
+      <th>创建时间</th>
       <th>操作</th>
     </tr>
   </thead>
@@ -40,6 +41,7 @@
       <td>
         <nz-tag [nzColor]="data.enable == '0' ? 'error' : 'success'">{{ data.enable == '0' ? '禁用' : '启用' }}</nz-tag>
       </td>
+      <td>{{ data.create_time | moment }}</td>
       <td>
         <a class="mr-10" (click)="addRow(data.id, data.name)">编辑</a>
         <a

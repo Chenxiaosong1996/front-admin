@@ -20,7 +20,7 @@
       </nz-form-item>
     </div>
     <div nz-col [nzSpan]="8" class="text-right">
-      <!-- <button nz-button class="ml-10" [nzType]="'primary'" (click)="addRow()">新增</button> -->
+      <button nz-button class="ml-10" [nzType]="'primary'" (click)="addRow()">新增</button>
       <button nz-button class="ml-10" [nzType]="'primary'" (click)="loadData()">查询</button>
       <button nz-button class="ml-10" (click)="resetForm()">重置</button>
     </div>
@@ -32,6 +32,7 @@
       <th>作者</th>
       <th>代号</th>
       <th>状态</th>
+      <th>创建时间</th>
       <!-- <th>操作</th> -->
     </tr>
   </thead>
@@ -42,11 +43,12 @@
       <td>
         <nz-tag [nzColor]="data.enable == '0' ? 'error' : 'success'">{{ data.enable == '0' ? '禁用' : '启用' }}</nz-tag>
       </td>
-      <!-- <td>
+      <td>{{ data.create_time | moment }}</td>
+      <td>
         <a class="mr-10" (click)="addRow(data.id, data.name, data.code)">编辑</a>
         <a class="mr-10" nz-popconfirm [nzPopconfirmTitle]="'是否' + data.enable == '0' ? '启用' : '禁用' + '此作者?'" (nzOnConfirm)="enableRow(data.id, data.enable)">{{data.enable == '0' ? '启用' : '禁用'}}</a>
         <a nz-popconfirm nzPopconfirmTitle="是否删除此作者?" (nzOnConfirm)="deleteRow(data.id)">删除</a>
-      </td> -->
+      </td>
     </tr>
   </tbody>
 </nz-table>
