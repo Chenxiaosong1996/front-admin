@@ -211,10 +211,21 @@ export class EditorMdComponent implements AfterViewInit, ControlValueAccessor {
           this.previewing();
         }
         // this.resize("100%", 640);
-        //this.fullscreen();
-        //this.watch().fullscreen();
+        // this.fullscreen();
+        // this.watch().fullscreen();
         // this.width("100%");
-        //this.height(480);
+        // this.height(480);
+        if (!that.disabled && !that.watch) {
+          this.cm.on('change', () => {
+            if (that.defaulted == 'html') {
+              that.onChange(this.getHTML());
+              that.changed.emit(this.getHTML());
+            } else {
+              that.onChange(this.getMarkdown());
+              that.changed.emit(this.getMarkdown());
+            }
+          })
+        }
       },
       onchange: function () {
         if (that.defaulted == 'html') {
