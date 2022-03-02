@@ -1,7 +1,7 @@
 import { generateId } from '@shared';
 import { environment } from '@env/environment';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AfterViewInit, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { AfterViewInit, OnDestroy, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 declare const editormd: any;
 
 @Component({
@@ -15,7 +15,7 @@ declare const editormd: any;
     }
   ]
 })
-export class EditorMdComponent implements AfterViewInit, ControlValueAccessor {
+export class EditorMdComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
   editorMdId: string = '';
   editorContent: string = '';
 
@@ -173,6 +173,12 @@ export class EditorMdComponent implements AfterViewInit, ControlValueAccessor {
 
   ngAfterViewInit() {
     this.editorStartup();
+  }
+
+  ngOnDestroy() {
+    if (this.markdownEditor) {
+      this.markdownEditor.editor.remove();
+    }
   }
 
   writeValue(obj: string): void {
