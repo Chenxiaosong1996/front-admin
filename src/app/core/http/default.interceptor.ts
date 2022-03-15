@@ -7,7 +7,7 @@ import {
   HttpInterceptor,
   HttpRequest,
   HttpResponse,
-  HttpResponseBase,
+  HttpResponseBase
 } from '@angular/common/http';
 import { defaultUrl } from '@core';
 import { Router } from '@angular/router';
@@ -18,6 +18,7 @@ import { catchError, mergeMap } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { TokenService } from '../auth/token.guard';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import Track from './track.service';
 
 const CODEMESSAGE: { [key: number]: string } = {
   0: '请求发起失败，请确保服务开启。',
@@ -38,14 +39,11 @@ const CODEMESSAGE: { [key: number]: string } = {
   504: '网关超时。'
 };
 
-
-
 /**
  * 默认HTTP拦截器，其注册细节见 `app.module.ts`
  */
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
-
   constructor(private injector: Injector) { }
 
   private get http(): HttpClient {
@@ -70,6 +68,8 @@ export class DefaultInterceptor implements HttpInterceptor {
   }
 
   private handleData(ev: HttpResponseBase, req: HttpRequest<any>, next: HttpHandler): Observable<any> {
+    const track = new Track();
+    track.send({ url: req.url, method: req.method, code: ev.status, body: JSON.stringify(req.body || ''), message: ev['message'] || ev.statusText, result: JSON.stringify(ev['body'] || '') })
     this.checkStatus(ev);
     // 业务处理：一些通用操作
     switch (ev.status) {
@@ -94,10 +94,7 @@ export class DefaultInterceptor implements HttpInterceptor {
         break;
       default:
         if (ev instanceof HttpErrorResponse) {
-          console.warn(
-            '未可知错误，可能是后端不支持跨域CORS或无效配置引起',
-            ev
-          );
+          console.warn('未可知错误，可能是后端不支持跨域CORS或无效配置引起', ev);
         }
         break;
     }
