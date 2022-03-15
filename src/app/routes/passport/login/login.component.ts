@@ -143,9 +143,6 @@ export class UserLoginComponent {
           callback
         )}`;
         break;
-      case 'weibo':
-        url = `https://api.weibo.com/oauth2/authorize?client_id=1239507802&response_type=code&redirect_uri=${decodeURIComponent(callback)}`;
-        break;
     }
     location.href = url;
   }

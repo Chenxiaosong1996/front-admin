@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule, Type } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { TranslateTimePipe } from './pipe/time';
+import { TranslateTimePipe } from './pipe/time.pipe';
 import { UploaderComponent } from './components/upload';
 import { EditorMdComponent } from './components/editor.md';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
@@ -29,4 +29,4 @@ const DIRECTIVES: Array<Type<any>> = [TranslateTimePipe];
     ...DIRECTIVES
   ]
 })
-export class SharedModule {}
+export class SharedModule { }

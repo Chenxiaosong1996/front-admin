@@ -2,7 +2,7 @@
 export * from './components/editor.md';
 export * from './components/upload';
 // Pipe
-export * from './pipe/time';
+export * from './pipe/time.pipe';
 // Utils
 export * from './utils/format';
 export * from './utils/storage';
