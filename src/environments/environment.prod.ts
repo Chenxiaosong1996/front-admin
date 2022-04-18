@@ -24,7 +24,7 @@ export const environment = {
       }
     },
     obs: {
-      url: 'https://chenxiaosong-1257029795.cos.ap-shanghai.myqcloud.com'
+      url: 'https://chenxiaosong1996.top/cloudobs'
     },
     editor: {
       path: 'assets/plugins/editormd/lib/',
